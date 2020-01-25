@@ -4,12 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".LandingActivity"
     tools:showIn="@layout/app_bar_landing">
 
+
+
+
+    <ImageView
+        android:id="@+id/weather_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/weather" />
+
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/temperature_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Temp"
+        android:textColor="@android:color/tertiary_text_dark"
+        android:textSize="40sp"
+        app:layout_constraintStart_toEndOf="@+id/weather_image"
+        app:layout_constraintTop_toTopOf="@+id/weather_image" />
+
+    <TextView
+        android:id="@+id/sky_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Sky status"
+        android:textColor="@android:color/tertiary_text_dark"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/weather_image"
+        app:layout_constraintTop_toBottomOf="@id/temperature_status" />
+
+    <TextView
+        android:id="@+id/humidity_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="humidity"
+        android:textColor="@android:color/tertiary_text_dark"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/weather_image"
+        app:layout_constraintTop_toBottomOf="@id/sky_status" />
+
+
 
 </android.support.constraint.ConstraintLayout>
