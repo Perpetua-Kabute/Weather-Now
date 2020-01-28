@@ -4,58 +4,129 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/sky"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".LandingActivity"
     tools:showIn="@layout/app_bar_landing">
-
-
-
-
-    <ImageView
-        android:id="@+id/weather_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="120dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/weather" />
 
 
     <TextView
         android:id="@+id/temperature_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginTop="168dp"
         android:text="Temp"
-        android:textColor="@android:color/tertiary_text_dark"
-        android:textSize="40sp"
-        app:layout_constraintStart_toEndOf="@+id/weather_image"
-        app:layout_constraintTop_toTopOf="@+id/weather_image" />
+        android:textColor="@android:color/background_light"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/sky_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:text="Sky status"
         android:textColor="@android:color/tertiary_text_dark"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/weather_image"
+        app:layout_constraintEnd_toEndOf="@+id/temperature_status"
+        app:layout_constraintStart_toStartOf="@+id/temperature_status"
         app:layout_constraintTop_toBottomOf="@id/temperature_status" />
+
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="168dp"
+        android:layout_marginEnd="32dp"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sky_status"/>
 
     <TextView
         android:id="@+id/humidity_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:text="humidity"
         android:textColor="@android:color/tertiary_text_dark"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/weather_image"
-        app:layout_constraintTop_toBottomOf="@id/sky_status" />
+        app:layout_constraintTop_toBottomOf="@id/view"
+        app:layout_constraintStart_toEndOf="@+id/wind_status"
+        app:layout_constraintEnd_toStartOf="@+id/precipitation_status"
+        app:layout_constraintBottom_toTopOf="@id/humidity_value" />
 
+    <TextView
+        android:id="@+id/wind_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="wind"
+        android:textColor="@android:color/tertiary_text_dark"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/wind_speed"
+        app:layout_constraintEnd_toStartOf="@+id/precipitation_status"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view" />
+
+    <TextView
+        android:id="@+id/precipitation_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="Precip"
+        android:textColor="@android:color/tertiary_text_dark"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/precipitation_value"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/humidity_status"
+        app:layout_constraintTop_toBottomOf="@id/view" />
+
+    <TextView
+        android:id="@+id/wind_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="speed"
+        android:textColor="@android:color/background_light"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wind_status"
+        app:layout_constraintEnd_toStartOf="@+id/precipitation_value" />
+
+    <TextView
+        android:id="@+id/precipitation_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="value"
+        android:textColor="@android:color/background_light"
+        android:textSize="40sp"
+        app:layout_constraintStart_toEndOf="@+id/humidity_value"
+        app:layout_constraintTop_toBottomOf="@id/precipitation_status"
+        app:layout_constraintEnd_toEndOf="@id/view" />
+
+    <TextView
+        android:id="@+id/humidity_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="value"
+        android:textColor="@android:color/background_light"
+        android:textSize="40sp"
+        app:layout_constraintStart_toEndOf="@+id/wind_speed"
+        app:layout_constraintTop_toBottomOf="@id/humidity_status"
+        app:layout_constraintEnd_toStartOf="@+id/precipitation_value" />
 
 
 </android.support.constraint.ConstraintLayout>
