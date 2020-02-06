@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -24,20 +25,22 @@ public class LandingActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-//        ImageView weatherImage = (ImageView) findViewById(R.id.weather_image);
-//
-//        Picasso.with(getContext()).load(R.id.weather_image).into(weatherImage);
+        TextView tempValue = findViewById(R.id.temperature_status);
+        TextView skyStatus = findViewById(R.id.sky_status);
+        TextView windSpeed = findViewById(R.id.wind_speed);
+        TextView humidityValue = findViewById(R.id.humidity_value);
+        TextView precipitationValue = findViewById(R.id.precipitation_value);
+
     }
 
     @Override
