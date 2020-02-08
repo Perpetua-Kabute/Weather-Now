@@ -1,6 +1,7 @@
 package com.androidplayground.weathernow;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -18,28 +19,40 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.androidplayground.weathernow.WeatherResponse.main;
+
 public class LandingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static String BaseUrl = "http://api.openweather.org/";
+    public static String AppId = "deea22f0e137903c04bad3ef2de3b319";
+    public static String lat = "35";
+    public static String lon = "135";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open,  R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        TextView tempValue = findViewById(R.id.temperature_status);
-        TextView skyStatus = findViewById(R.id.sky_status);
-        TextView windSpeed = findViewById(R.id.wind_speed);
-        TextView humidityValue = findViewById(R.id.humidity_value);
-        TextView precipitationValue = findViewById(R.id.precipitation_value);
+        getCurrentData();
+
+
 
     }
 
@@ -98,5 +111,39 @@ public class LandingActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    void getCurrentData() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BaseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        WeatherService service = retrofit.create(WeatherService.class);
+        Call<WeatherResponse> call = service.getCurrentWeatherData(lat, lon, AppId);
+        call.enqueue(new Callback<WeatherResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
+                if (response.code() == 200) {
+                    WeatherResponse weatherResponse = response.body();
+                    assert weatherResponse != null;
+                    WeatherResponse weatherResponse1 = new WeatherResponse();
+
+
+                    TextView tempValue = (TextView) findViewById(R.id.temperature_status);
+                    StringBuilder sb = new StringBuilder();
+                    tempValue.setText(sb.append(main.temp));
+                    TextView skyStatus = findViewById(R.id.sky_status);
+                    TextView windSpeed = findViewById(R.id.wind_speed);
+                    TextView humidityValue = findViewById(R.id.humidity_value);
+                    TextView precipitationValue = findViewById(R.id.precipitation_value);
+
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
+                t.getMessage();
+            }
+        });
     }
 }

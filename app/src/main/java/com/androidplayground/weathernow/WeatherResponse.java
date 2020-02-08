@@ -10,14 +10,14 @@ public class WeatherResponse {
     @SerializedName("sys")
     public Sys sys;
     @SerializedName("weather")
-    public ArrayList<Weather> weather= new ArrayList<Weather>();
+    public ArrayList<Weather> weather = new ArrayList<Weather>();
     @SerializedName("main")
-    public Main main;
+    public static Main main;
     @SerializedName("wind")
     public Wind wind;
     @SerializedName("name")
     public String name;
-
+}
     class Coord{
         @SerializedName("lon")
         public float lon;
@@ -47,4 +47,4 @@ public class WeatherResponse {
         @SerializedName("country")
        public String country;
    }
-}
+
