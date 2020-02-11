@@ -130,8 +130,6 @@ public class LandingActivity extends AppCompatActivity
             @Override
             public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
                 if (response.code() == 200) {
-                    // System.out.println(response.body().weather);
-                    Log.d("myTag", String.valueOf(response.body().weather));
                     WeatherResponse weatherResponse = response.body();
                     Gson gson = new Gson();
                     String weatherResponseJson = gson.toJson(weatherResponse);
@@ -143,8 +141,11 @@ public class LandingActivity extends AppCompatActivity
                     tempValue.setText(String.valueOf((int)(weatherResponse.main.temp - 273.15)) + " °C");
 
                     TextView skyStatus = findViewById(R.id.sky_status);
+                    skyStatus.setText(weatherResponse.weather.get(0).description);
                     TextView windSpeed = findViewById(R.id.wind_speed);
+                    windSpeed.setText(String.valueOf(weatherResponse.wind.speed) + "m/s");
                     TextView humidityValue = findViewById(R.id.humidity_value);
+                    humidityValue.setText(String.valueOf(weatherResponse.main.humidity));
                     TextView precipitationValue = findViewById(R.id.precipitation_value);
 
                 }
