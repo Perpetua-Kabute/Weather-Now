@@ -12,7 +12,7 @@ public class WeatherResponse {
     @SerializedName("weather")
     public ArrayList<Weather> weather = new ArrayList<Weather>();
     @SerializedName("main")
-    public static Main main;
+    public MainData main;
     @SerializedName("wind")
     public Wind wind;
     @SerializedName("name")
@@ -27,9 +27,11 @@ public class WeatherResponse {
     class Weather{
         @SerializedName("main")
         public String main;
+        @SerializedName("description")
+        public String description;
 
     }
-    class Main{
+    class MainData{
         @SerializedName("temp")
         public float temp;
         @SerializedName("humidity")
