@@ -28,10 +28,10 @@
         android:id="@+id/sky_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="42dp"
         android:text="Sky status"
-        android:textColor="@android:color/tertiary_text_dark"
-        android:textSize="18sp"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/temperature_status"
         app:layout_constraintStart_toStartOf="@+id/temperature_status"
         app:layout_constraintTop_toBottomOf="@id/temperature_status" />
@@ -58,11 +58,11 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:text="humidity"
-        android:textColor="@android:color/tertiary_text_dark"
-        android:textSize="24sp"
+        android:textColor="@android:color/background_light"
+        android:textSize="22sp"
         app:layout_constraintTop_toBottomOf="@id/view"
         app:layout_constraintStart_toEndOf="@+id/wind_status"
-        app:layout_constraintEnd_toStartOf="@+id/precipitation_status"
+        app:layout_constraintEnd_toStartOf="@+id/temperature_range"
         app:layout_constraintBottom_toTopOf="@id/humidity_value" />
 
     <TextView
@@ -71,23 +71,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="wind"
-        android:textColor="@android:color/tertiary_text_dark"
-        android:textSize="24sp"
+        android:textColor="@android:color/background_light"
+        android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@id/wind_speed"
         app:layout_constraintEnd_toStartOf="@+id/humidity_status"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view" />
 
     <TextView
-        android:id="@+id/precipitation_status"
+        android:id="@+id/temperature_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
-        android:text="Precipitation"
-        android:textColor="@android:color/tertiary_text_dark"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/precipitation_value"
+        android:text="TempRange"
+        android:textColor="@android:color/background_light"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@id/temp_range"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintStart_toEndOf="@+id/humidity_status"
         app:layout_constraintTop_toBottomOf="@id/view" />
@@ -99,21 +99,21 @@
         android:layout_marginStart="24dp"
         android:text="speed"
         android:textColor="@android:color/background_light"
-        android:textSize="40sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/wind_status"
         app:layout_constraintEnd_toStartOf="@+id/humidity_value" />
 
     <TextView
-        android:id="@+id/precipitation_value"
+        android:id="@+id/temp_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="value"
         android:textColor="@android:color/background_light"
-        android:textSize="40sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/humidity_value"
-        app:layout_constraintTop_toBottomOf="@id/precipitation_status"
+        app:layout_constraintTop_toBottomOf="@id/temperature_range"
         app:layout_constraintEnd_toEndOf="@id/view" />
 
     <TextView
@@ -123,10 +123,10 @@
         android:layout_marginStart="24dp"
         android:text="value"
         android:textColor="@android:color/background_light"
-        android:textSize="40sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/wind_speed"
         app:layout_constraintTop_toBottomOf="@id/humidity_status"
-        app:layout_constraintEnd_toStartOf="@+id/precipitation_value" />
+        app:layout_constraintEnd_toStartOf="@+id/temp_range" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -1,15 +1,8 @@
 package com.androidplayground.weathernow;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
@@ -19,11 +12,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -146,7 +137,8 @@ public class LandingActivity extends AppCompatActivity
                     windSpeed.setText(String.valueOf(weatherResponse.wind.speed) + "m/s");
                     TextView humidityValue = findViewById(R.id.humidity_value);
                     humidityValue.setText(String.valueOf(weatherResponse.main.humidity));
-                    TextView precipitationValue = findViewById(R.id.precipitation_value);
+                    TextView tempRange = findViewById(R.id.temp_range);
+                    tempRange.setText(String.valueOf((int)(weatherResponse.main.temp_max - 273.15)) +"/" + String.valueOf((int)(weatherResponse.main.temp_min - 273.15)) + " °C");
 
                 }
             }
@@ -162,28 +154,5 @@ public class LandingActivity extends AppCompatActivity
         });
     }
 
-//    // Here, thisActivity is the current activity
-//    if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
-//            != PackageManager.PERMISSION_GRANTED) {
-//
-//        // Permission is not granted
-//        // Should we show an explanation?
-//        if (ActivityCompat.shouldShowRequestPermissionRationale(thisActivity,
-//                Manifest.permission.READ_CONTACTS)) {
-//            // Show an explanation to the user *asynchronously* -- don't block
-//            // this thread waiting for the user's response! After the user
-//            // sees the explanation, try again to request the permission.
-//        } else {
-//            // No explanation needed; request the permission
-//            ActivityCompat.requestPermissions(thisActivity,
-//                    new String[]{Manifest.permission.INTERNET},
-//                    MY_PERMISSIONS_REQUEST_INTERNET);
-//
-//            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//            // app-defined int constant. The callback method gets the
-//            // result of the request.
-//        }
-//    } else {
-//        // Permission has already been granted
-//    }
+
 }
