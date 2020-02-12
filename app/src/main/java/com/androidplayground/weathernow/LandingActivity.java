@@ -35,6 +35,7 @@ public class LandingActivity extends AppCompatActivity
         setContentView(R.layout.activity_landing);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -139,6 +140,8 @@ public class LandingActivity extends AppCompatActivity
                     humidityValue.setText(String.valueOf(weatherResponse.main.humidity));
                     TextView tempRange = findViewById(R.id.temp_range);
                     tempRange.setText(String.valueOf((int)(weatherResponse.main.temp_max - 273.15)) +"/" + String.valueOf((int)(weatherResponse.main.temp_min - 273.15)) + " °C");
+                    TextView locationName = findViewById(R.id.location_name);
+                    locationName.setText(weatherResponse.name);
 
                 }
             }
