@@ -28,7 +28,7 @@
         android:id="@+id/sky_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="16dp"
         android:text="Sky status"
         android:textColor="@android:color/background_light"
         android:textSize="24sp"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="32dp"
         android:background="#000000"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,82 +51,127 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sky_status"/>
 
-    <TextView
-        android:id="@+id/humidity_status"
+
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:text="humidity"
-        android:textColor="@android:color/background_light"
-        android:textSize="22sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@id/view"
         app:layout_constraintTop_toBottomOf="@id/view"
-        app:layout_constraintStart_toEndOf="@+id/wind_status"
-        app:layout_constraintEnd_toStartOf="@+id/temperature_range"
-        app:layout_constraintBottom_toTopOf="@id/humidity_value" />
+        card_view:cardBackgroundColor="@android:color/transparent"
+        card_view:cardElevation="0dp">
+        <TextView
+            android:id="@+id/wind_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="wind"
+            android:textColor="@android:color/background_light"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@id/wind_speed"
+            app:layout_constraintEnd_toEndOf="@+id/card"
+            app:layout_constraintStart_toStartOf="@+id/card"
+            app:layout_constraintTop_toBottomOf="@id/view" />
 
-    <TextView
-        android:id="@+id/wind_status"
+        <TextView
+            android:id="@+id/wind_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="speed"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/humidity_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wind_status" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="wind"
-        android:textColor="@android:color/background_light"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@id/wind_speed"
-        app:layout_constraintEnd_toStartOf="@+id/humidity_status"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@id/card"
+        app:layout_constraintTop_toBottomOf="@id/view"
+        card_view:cardBackgroundColor="@android:color/transparent"
+        card_view:cardElevation="0dp">
 
-    <TextView
-        android:id="@+id/temperature_range"
+        <TextView
+            android:id="@+id/humidity_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="humidity"
+            android:textColor="@android:color/background_light"
+            android:textSize="22sp"
+            app:layout_constraintTop_toBottomOf="@id/view"
+            app:layout_constraintStart_toEndOf="@+id/wind_status"
+            app:layout_constraintEnd_toStartOf="@+id/temperature_range"
+            app:layout_constraintBottom_toTopOf="@id/humidity_value" />
+
+        <TextView
+            android:id="@+id/humidity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="value"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/wind_speed"
+            app:layout_constraintTop_toBottomOf="@id/humidity_status"
+            app:layout_constraintEnd_toStartOf="@+id/temp_range" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:text="TempRange"
-        android:textColor="@android:color/background_light"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@id/temp_range"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintStart_toEndOf="@+id/humidity_status"
-        app:layout_constraintTop_toBottomOf="@id/view" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@id/card2"
+        app:layout_constraintTop_toBottomOf="@id/view"
+        card_view:cardBackgroundColor="@android:color/transparent"
+        card_view:cardElevation="0dp">
+        <TextView
+            android:id="@+id/temperature_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="TempRange"
+            android:textColor="@android:color/background_light"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@id/temp_range"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintStart_toEndOf="@+id/humidity_status"
+            app:layout_constraintTop_toBottomOf="@id/view" />
 
-    <TextView
-        android:id="@+id/wind_speed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="speed"
-        android:textColor="@android:color/background_light"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/wind_status"
-        app:layout_constraintEnd_toStartOf="@+id/humidity_value" />
 
-    <TextView
-        android:id="@+id/temp_range"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="value"
-        android:textColor="@android:color/background_light"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/humidity_value"
-        app:layout_constraintTop_toBottomOf="@id/temperature_range"
-        app:layout_constraintEnd_toEndOf="@id/view" />
 
-    <TextView
-        android:id="@+id/humidity_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="value"
-        android:textColor="@android:color/background_light"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/wind_speed"
-        app:layout_constraintTop_toBottomOf="@id/humidity_status"
-        app:layout_constraintEnd_toStartOf="@+id/temp_range" />
+        <TextView
+            android:id="@+id/temp_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="value"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/humidity_value"
+            app:layout_constraintTop_toBottomOf="@id/temperature_range"
+            app:layout_constraintEnd_toEndOf="@id/view" />
+
+    </android.support.v7.widget.CardView>
+
+
+
 
 
 </android.support.constraint.ConstraintLayout>
