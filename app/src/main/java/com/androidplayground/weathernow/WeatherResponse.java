@@ -29,6 +29,8 @@ public class WeatherResponse {
         public String main;
         @SerializedName("description")
         public String description;
+        @SerializedName("icon")
+        public String icon;
 
     }
     class MainData{

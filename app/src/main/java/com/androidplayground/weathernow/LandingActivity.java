@@ -12,9 +12,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +43,13 @@ public class LandingActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+        DateFormat df = new SimpleDateFormat("HH:mm");
+        String date = df.format(Calendar.getInstance().getTime());
+
+        TextView timeNow = findViewById(R.id.time_now);
+        timeNow.setText(date);
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -142,6 +156,10 @@ public class LandingActivity extends AppCompatActivity
                     tempRange.setText(String.valueOf((int)(weatherResponse.main.temp_max - 273.15)) +"/" + String.valueOf((int)(weatherResponse.main.temp_min - 273.15)) + " °C");
                     TextView locationName = findViewById(R.id.location_name);
                     locationName.setText(weatherResponse.name);
+
+                    String iconUrl = "http://openweathermap.org/img/w/" + weatherResponse.weather.get(0).icon + ".png";
+                    ImageView weatherIcon = findViewById(R.id.weather_icon);
+                    Picasso.get().load(iconUrl).into(weatherIcon);
 
                 }
             }
