@@ -1,5 +1,7 @@
 package com.androidplayground.weathernow;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -35,7 +37,7 @@ public class LandingActivity extends AppCompatActivity
     public static String AppId = "deea22f0e137903c04bad3ef2de3b319";
     public static String lat = "-1.09934";
     public static String lon = "37.0248";
-
+    ProgressDialog p;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,8 @@ public class LandingActivity extends AppCompatActivity
 
 
 
-        getCurrentData();
+        AsyncTaskClass asycTask = new AsyncTaskClass();
+        asycTask.execute();
 
 
 
@@ -125,54 +128,124 @@ public class LandingActivity extends AppCompatActivity
         return true;
     }
 
-    void getCurrentData() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BaseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        WeatherService service = retrofit.create(WeatherService.class);
-        Call<WeatherResponse> call = service.getCurrentWeatherData(lat, lon, AppId);
-        call.enqueue(new Callback<WeatherResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
-                if (response.code() == 200) {
-                    WeatherResponse weatherResponse = response.body();
-                    Gson gson = new Gson();
-                    String weatherResponseJson = gson.toJson(weatherResponse);
-                    Log.d("weatherResponse", weatherResponseJson);
-                    assert weatherResponse != null;
+//    void getCurrentData()  {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(BaseUrl)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        WeatherService service = retrofit.create(WeatherService.class);
+//        Call<WeatherResponse> call = service.getCurrentWeatherData(lat, lon, AppId);
+//        call.enqueue(new Callback<WeatherResponse>() {
+//            @Override
+//            public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
+//                if (response.code() == 200) {
+//                    WeatherResponse weatherResponse = response.body();
+//                    Gson gson = new Gson();
+//                    String weatherResponseJson = gson.toJson(weatherResponse);
+//                    Log.d("weatherResponse", weatherResponseJson);
+//                    assert weatherResponse != null;
+//
+//
+//                    TextView tempValue = (TextView) findViewById(R.id.temperature_status);
+//                    tempValue.setText(String.valueOf((int)(weatherResponse.main.temp - 273.15)) + " °C");
+//
+//                    TextView skyStatus = findViewById(R.id.sky_status);
+//                    skyStatus.setText(weatherResponse.weather.get(0).description);
+//                    TextView windSpeed = findViewById(R.id.wind_speed);
+//                    windSpeed.setText(String.valueOf(weatherResponse.wind.speed) + "m/s");
+//                    TextView humidityValue = findViewById(R.id.humidity_value);
+//                    humidityValue.setText(String.valueOf(weatherResponse.main.humidity));
+//                    TextView tempRange = findViewById(R.id.temp_range);
+//                    tempRange.setText(String.valueOf((int)(weatherResponse.main.temp_max - 273.15)) +"/" + String.valueOf((int)(weatherResponse.main.temp_min - 273.15)) + " °C");
+//                    TextView locationName = findViewById(R.id.location_name);
+//                    locationName.setText(weatherResponse.name);
+//
+//                    String iconUrl = "http://openweathermap.org/img/w/" + weatherResponse.weather.get(0).icon + ".png";
+//                    ImageView weatherIcon = findViewById(R.id.weather_icon);
+//                    Picasso.get().load(iconUrl).into(weatherIcon);
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
+//                TextView tempValue = (TextView) findViewById(R.id.temperature_status);
+//                tempValue.setText("123");
+//                System.out.println("Network Error :: " + t.getLocalizedMessage());
+//                t.getMessage();
+//                // Log.e("1EXCEPTION", t.getMessage());
+//            }
+//        });
+//    }
 
+    private class AsyncTaskClass extends AsyncTask< Void, Void, Call<WeatherResponse>>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            p = new ProgressDialog(LandingActivity.this);
+            p.setIndeterminate(false);
+            p.setCancelable(false);
+            p.show();
+        }
 
-                    TextView tempValue = (TextView) findViewById(R.id.temperature_status);
-                    tempValue.setText(String.valueOf((int)(weatherResponse.main.temp - 273.15)) + " °C");
+        @Override
+        protected Call<WeatherResponse> doInBackground(Void...Void) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BaseUrl)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            WeatherService service = retrofit.create(WeatherService.class);
+            Call<WeatherResponse> call = service.getCurrentWeatherData(lat, lon, AppId);
+            return call;
+        }
 
-                    TextView skyStatus = findViewById(R.id.sky_status);
-                    skyStatus.setText(weatherResponse.weather.get(0).description);
-                    TextView windSpeed = findViewById(R.id.wind_speed);
-                    windSpeed.setText(String.valueOf(weatherResponse.wind.speed) + "m/s");
-                    TextView humidityValue = findViewById(R.id.humidity_value);
-                    humidityValue.setText(String.valueOf(weatherResponse.main.humidity));
-                    TextView tempRange = findViewById(R.id.temp_range);
-                    tempRange.setText(String.valueOf((int)(weatherResponse.main.temp_max - 273.15)) +"/" + String.valueOf((int)(weatherResponse.main.temp_min - 273.15)) + " °C");
-                    TextView locationName = findViewById(R.id.location_name);
-                    locationName.setText(weatherResponse.name);
+        @Override
+        protected void onPostExecute(Call<WeatherResponse> result) {
+            super.onPostExecute(result);
+            p.dismiss();
 
-                    String iconUrl = "http://openweathermap.org/img/w/" + weatherResponse.weather.get(0).icon + ".png";
-                    ImageView weatherIcon = findViewById(R.id.weather_icon);
-                    Picasso.get().load(iconUrl).into(weatherIcon);
+            result.enqueue(new Callback<WeatherResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
+                    if (response.code() == 200) {
+                        WeatherResponse weatherResponse = response.body();
+                        Gson gson = new Gson();
+                        String weatherResponseJson = gson.toJson(weatherResponse);
+                        Log.d("weatherResponse", weatherResponseJson);
+                        assert weatherResponse != null;
 
+                        TextView tempValue = (TextView) findViewById(R.id.temperature_status);
+                        tempValue.setText(String.valueOf((int)(weatherResponse.main.temp - 273.15)) + " °C");
+
+                        TextView skyStatus = findViewById(R.id.sky_status);
+                        skyStatus.setText(weatherResponse.weather.get(0).description);
+                        TextView windSpeed = findViewById(R.id.wind_speed);
+                        windSpeed.setText(String.valueOf(weatherResponse.wind.speed) + "m/s");
+                        TextView humidityValue = findViewById(R.id.humidity_value);
+                        humidityValue.setText(String.valueOf(weatherResponse.main.humidity));
+                        TextView tempRange = findViewById(R.id.temp_range);
+                        tempRange.setText(String.valueOf((int)(weatherResponse.main.temp_max - 273.15)) +"/" + String.valueOf((int)(weatherResponse.main.temp_min - 273.15)) + " °C");
+                        TextView locationName = findViewById(R.id.location_name);
+                        locationName.setText(weatherResponse.name);
+
+                        String iconUrl = "http://openweathermap.org/img/w/" + weatherResponse.weather.get(0).icon + ".png";
+                        ImageView weatherIcon = findViewById(R.id.weather_icon);
+                        Picasso.get().load(iconUrl).into(weatherIcon);
+
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
-                TextView tempValue = (TextView) findViewById(R.id.temperature_status);
-                tempValue.setText("123");
-                System.out.println("Network Error :: " + t.getLocalizedMessage());
-                t.getMessage();
-                // Log.e("1EXCEPTION", t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
+                    TextView tempValue = (TextView) findViewById(R.id.temperature_status);
+                    tempValue.setText("123");
+                    System.out.println("Network Error :: " + t.getLocalizedMessage());
+                    t.getMessage();
+                    Log.e("1EXCEPTION", t.getMessage());
+                }
+            });
+
+        }
     }
 
 
